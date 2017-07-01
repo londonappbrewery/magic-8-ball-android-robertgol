@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    int previousNumber = 0;
+    Random randomNumberGenerator = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Random randomNumberGenerator = new Random();
+                previousNumber = differentNumber();
 
-                ballDisplay.setImageResource(ballArray[randomNumberGenerator.nextInt(5)]);
+                ballDisplay.setImageResource(ballArray[previousNumber]);
             }
         });
+    }
+
+    protected int differentNumber()
+    {
+        int number = randomNumberGenerator.nextInt(5);
+
+        if (previousNumber == number)
+        {
+            return differentNumber();
+        }
+
+        return number;
     }
 }
